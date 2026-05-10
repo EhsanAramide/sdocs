@@ -1,0 +1,37 @@
+name: fetch docs
+
+on:
+  push:
+    paths:
+      - "config/docs.list"
+
+jobs:
+  fetch:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v4
+
+    - name: install deps
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y zstd
+
+    - name: run pipeline
+      run: |
+        make fetch
+        make compress
+        make cleanup
+
+    - name: commit artifacts
+      run: |
+        git config --global user.name github-actions
+        git config --global user.email actions@github.com
+
+        git add compressed
+
+        git commit -m "update docs" || echo "no changes"
+
+        git push
