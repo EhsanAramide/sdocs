@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>sdocs</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<script src="lib/flexsearch.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-title">Docs</div>
+        <ul id="docs-list"></ul>
+    </aside>
+
+    <main class="content">
+
+        <h1 class="logo">sdocs</h1>
+
+        <input
+            id="search"
+            class="search"
+            placeholder="Search documentation..."
+            autocomplete="off"
+        >
+
+        <div id="suggestions" class="suggestions"></div>
+
+        <div id="results" class="results"></div>
+
+    </main>
+
+</div>
+
+<script src="search.js"></script>
+
+</body>
+</html>
