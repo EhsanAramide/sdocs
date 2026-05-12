@@ -1,2 +1,4 @@
 package*.json
 node_modules/
+web/search_index.json
+archives
