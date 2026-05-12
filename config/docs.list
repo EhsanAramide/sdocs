@@ -1,5 +1,4 @@
 # alias | url
 
-pytorch https://pytorch.org/docs/stable/
-numpy https://numpy.org/doc/stable/
-pandas https://pandas.pydata.org/docs/
+pytorch-docs https://pytorch.org/docs/
+pytorch-tutorials https://pytorch.org/tutorials
