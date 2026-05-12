@@ -3,7 +3,7 @@ set -u
 
 LIST="config/docs.list"
 MAX_SIZE_MB=500
-DOWNLOAD_LEVEL=2
+DOWNLOAD_LEVEL=5
 
 mkdir -p archives
 
