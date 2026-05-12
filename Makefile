@@ -13,7 +13,13 @@ compress:
 	@for dir in $(ARCHIVES)/*; do \
 		name=$$(basename $$dir); \
 		echo "Compressing $$name"; \
-		tar --use-compress-program=zstd -cf $(COMPRESSED)/$$name.tar.zst -C $(ARCHIVES) $$name; \
+		tar \
+			--sort=name \
+			--mtime='UTC 2020-01-01' \
+			--owner=0 --group=0 --numeric-owner \
+			--use-compress-program="zstd -17 -T0 --long=27" \
+			-cf $(COMPRESSED)/$$name.tar.zst \
+			-C $(ARCHIVES) $$name; \
 	done
 
 extract:
@@ -22,10 +28,13 @@ extract:
 	@for file in $(COMPRESSED)/*.tar.zst; do \
 		name=$$(basename $$file .tar.zst); \
 		echo "Extracting $$name"; \
-		tar --use-compress-program=zstd -xf $$file -C $(ARCHIVES)/; \
+		tar \
+			--use-compress-program="zstd -d -T0 --long=27" \
+			-xf $$file \
+			-C $(ARCHIVES)/; \
 	done
 	@echo "Creating symlink of $(ARCHIVES) in web..."
-	@cd web && ln -s ../$(ARCHIVES) $(ARCHIVES)
+	@cd web && ln -sf ../$(ARCHIVES) $(ARCHIVES)
 
 index:
 	@echo "Building local search index..."
