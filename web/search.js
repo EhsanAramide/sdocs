@@ -10,9 +10,12 @@ async function loadIndex() {
     documents = searchData.pages;
 
     index = new FlexSearch.Document({
+        tokenize: "forward",
+        cache: true,
         document: {
             id: "id",
-            index: ["title", "content"]
+            index: ["title", "content"],
+            store: ["title", "url", "doc"]
         }
     });
 
@@ -45,15 +48,24 @@ function search(query) {
 
     if (!query) return [];
 
-    const results = index.search(query, { limit: 10, enrich: true });
+    const results = index.search(query, {
+        limit: 10,
+        enrich: true
+    });
+    const items = [];
+    const seen = new Set();
 
-    const ids = new Set();
+    results.forEach(r => {
 
-    results.forEach(r =>
-        r.result.forEach(x => ids.add(x.id))
-    );
+        r.result.forEach(x => {
+            if (!seen.has(x.id)) {
+                seen.add(x.id);
+                items.push(x.doc);
+            }
+        });
+    });
 
-    return documents.filter(d => ids.has(d.id));
+    return items;
 }
 
 function showSuggestions(items) {
@@ -70,7 +82,7 @@ function showSuggestions(items) {
 
         div.innerHTML = `<b>${item.title}</b><br><small>${item.doc}</small>`;
 
-        div.onclick = () => window.location = "../" + item.url;
+        div.onclick = () => window.location = "/" + item.url;
 
         box.appendChild(div);
     });
