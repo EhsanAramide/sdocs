@@ -1,10 +1,13 @@
 let index;
 let documents = [];
+let searchData;
 
 async function loadIndex() {
 
     const response = await fetch("search_index.json");
-    documents = await response.json();
+
+    searchData = await response.json();
+    documents = searchData.pages;
 
     index = new FlexSearch.Document({
         document: {
@@ -22,17 +25,15 @@ function buildSidebar() {
 
     const list = document.getElementById("docs-list");
 
-    const docs = [...new Set(documents.map(d => d.doc))];
-
-    docs.forEach(name => {
+    searchData.docs.forEach(doc => {
 
         const li = document.createElement("li");
 
         const a = document.createElement("a");
 
-        a.href = "../archives/" + name + "/index.html";
+        a.href = "../" + doc.entry;
 
-        a.textContent = name;
+        a.textContent = doc.name;
 
         li.appendChild(a);
 
