@@ -22,8 +22,7 @@ extract:
 	@for file in $(COMPRESSED)/*.tar.zst; do \
 		name=$$(basename $$file .tar.zst); \
 		echo "Extracting $$name"; \
-		mkdir -p $(ARCHIVES)/$$name; \
-		tar --use-compress-program=zstd -xf $$file -C $(ARCHIVES)/$$name; \
+		tar --use-compress-program=zstd -xf $$file -C $(ARCHIVES)/; \
 	done
 
 index:
