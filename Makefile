@@ -1,7 +1,7 @@
 ARCHIVES=archives
 COMPRESSED=compressed
 
-.PHONY: fetch index compress extract cleanup serve
+.PHONY: fetch index compress extract cleanup serve sanitize
 
 fetch:
 	@echo "Fetching documentation..."
@@ -43,3 +43,6 @@ serve:
 	@echo "URL: http://localhost:8000"
 	@echo ""
 	cd web && python3 -m http.server 8000
+
+sanitize:
+	python scripts/sanitize_assets.py
