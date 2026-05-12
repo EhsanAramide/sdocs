@@ -24,6 +24,8 @@ extract:
 		echo "Extracting $$name"; \
 		tar --use-compress-program=zstd -xf $$file -C $(ARCHIVES)/; \
 	done
+	@echo "Creating symlink of $(ARCHIVES) in web..."
+	@cd web && ln -s ../$(ARCHIVES) $(ARCHIVES)
 
 index:
 	@echo "Building local search index..."
@@ -32,6 +34,7 @@ index:
 cleanup:
 	@echo "Cleaning extracted docs..."
 	@rm -rf $(ARCHIVES)/*
+	@rm web/$(ARCHIVES)
 
 serve:
 	@echo ""
