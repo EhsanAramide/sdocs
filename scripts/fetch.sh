@@ -31,7 +31,7 @@ while read -r NAME URL; do
         --timeout=15 \
         --read-timeout=30 \
         --tries=3 \
-        --reject "mp4,zip,tar,exe,dmg,iso,pdf,psd,jpg,png,gif,avi,mov,mp3,ogg,wav,woff,woff2" \
+        --reject "mp4,zip,tar,exe,dmg,iso,pdf,psd,avi,mov,mp3,ogg,wav" \
         --directory-prefix="archives/$NAME" \
         "$URL"
 
