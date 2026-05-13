@@ -25,12 +25,17 @@ jobs:
         sudo apt-get install -y zstd
         pip install -r requirements.txt
 
-    - name: run pipeline
-      run: |
-        make fetch
-        make sanitize
-        make compress
-        make cleanup
+    - name: fetching docs.list
+      run: make fetch
+    
+    - name: sanitizing assets
+      run: make sanitize
+        
+    - name: compressing fetched docs
+      run: make compress
+
+    - name: cleanning up repo
+      run: make cleanup
 
     - name: commit artifacts
       run: |
