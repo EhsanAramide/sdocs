@@ -34,9 +34,6 @@ jobs:
     - name: compressing fetched docs
       run: make compress
 
-    - name: cleanning up repo
-      run: make cleanup
-
     - name: commit artifacts
       run: |
         git config user.name "github-actions[bot]"
